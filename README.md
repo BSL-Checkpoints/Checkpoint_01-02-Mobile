@@ -1,4 +1,4 @@
-# Loja da Turma — app do PROFESSOR (Semana 3: Checkout e Pedidos)
+# Loja da Turma — (Semana 3: Checkout e Pedidos)
 
 App fio-condutor com o **fluxo de compra completo**. Semana 1 = serviços Axios;
 Semana 2 = TanStack Query + carrinho otimista; **Semana 3 = fechar o pedido**:
@@ -48,11 +48,3 @@ src/
     OrdersScreen.tsx       # **histórico**
   ...                      # produtos/carrinho/auth = Semanas 1–2
 ```
-
-## Ponto que vale destacar na demo
-
-- **Otimismo x confirmação real:** o carrinho é otimista (micro-interação); **pagar
-  NÃO é** — a gente espera a resposta do servidor. É de propósito.
-- **Estados de UI de graça:** carrinho vazio, pagamento **recusado**, loading, erro,
-  sucesso — o fluxo exercita todos (exatamente o que o CP1 cobra).
-- **Máquina de estados:** PENDING → PAID / CANCELLED, visível na linha do tempo.
