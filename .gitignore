@@ -1,0 +1,15 @@
+node_modules/
+.expo/
+dist/
+web-build/
+.env
+*.log
+.DS_Store
+
+# Nativo gerado pelo prebuild/dev build
+/android
+/ios
+
+# Credenciais do Firebase — cada grupo tem as suas, NUNCA commitar
+google-services.json
+GoogleService-Info.plist
