@@ -154,7 +154,7 @@ export interface ShippingOption {
 
 export interface ShippingQuoteRequest {
   cepDestino: string;
-  orderId: string;
+  orderId?: string;
   items: Array<{
     weightGr: number;
     quantity: number;
