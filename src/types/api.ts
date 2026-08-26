@@ -145,6 +145,22 @@ export interface TimelineEntry {
   at: string;
 }
 
+// Tipagens do shipping
+export interface ShippingOption {
+  name: string;
+  price: number;
+  deliveryDays: number;
+}
+
+export interface ShippingQuoteRequest {
+  cepDestino: string;
+  orderId: string;
+  items: Array<{
+    weightGr: number;
+    quantity: number;
+  }>;
+}
+
 /** Erro normalizado que a camada de serviços SEMPRE lança (ver http.ts). */
 export class ApiError extends Error {
   constructor(
