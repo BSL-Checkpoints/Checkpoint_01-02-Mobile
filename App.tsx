@@ -25,6 +25,7 @@ import { CheckoutScreen } from '@/screens/CheckoutScreen';
 import { OrderScreen } from '@/screens/OrderScreen';
 import { OrdersScreen } from '@/screens/OrdersScreen';
 import type { AuthStackParamList, RootStackParamList } from '@/navigation';
+import { COLORS } from '@/styles/style';
 
 const AuthStack = createNativeStackNavigator<AuthStackParamList>();
 const AppStack = createNativeStackNavigator<RootStackParamList>();
@@ -41,8 +42,16 @@ function AuthFlow() {
 
 function AppFlow() {
   return (
-    <AppStack.Navigator>
-      <AppStack.Screen name="Products" component={ProductsScreen} options={{ title: 'Loja da Turma' }} />
+    <AppStack.Navigator
+      screenOptions={{
+        headerStyle: { backgroundColor: COLORS.white },
+        headerTintColor: COLORS.primary,
+        headerTitleStyle: { color: COLORS.black, fontWeight: '700' },
+        headerShadowVisible: false,
+        contentStyle: { backgroundColor: COLORS.background },
+      }}
+    >
+      <AppStack.Screen name="Products" component={ProductsScreen} options={{ title: 'Tech Lab' }} />
       <AppStack.Screen
         name="ProductDetail"
         component={ProductDetailScreen}
