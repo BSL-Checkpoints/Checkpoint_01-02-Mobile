@@ -1,14 +1,14 @@
 {
   "expo": {
-    "name": "Loja da Turma",
-    "slug": "loja-turma-app",
+    "name": "Tech Lab",
+    "slug": "tech-lab-app",
     "version": "0.2.0",
     "orientation": "portrait",
     "userInterfaceStyle": "light",
     "newArchEnabled": true,
     "splash": {
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#F1EFFD"
     },
     "ios": {
       "supportsTablet": true,
