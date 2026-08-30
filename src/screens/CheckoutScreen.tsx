@@ -11,6 +11,7 @@ import { money } from '@/lib/format';
 import { Button, ErrorState, Loading } from '@/components/ui';
 import type { RootStackParamList } from '@/navigation';
 import type { ApiError } from '@/types/api';
+import { BACKGROUND, COLORS } from '@/styles/style';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Checkout'>;
 
@@ -38,12 +39,19 @@ export function CheckoutScreen({ navigation }: Props) {
         data={items}
         keyExtractor={(it) => it.variantId}
         contentContainerStyle={styles.list}
-        ListHeaderComponent={<Text style={styles.h}>Revise seu pedido</Text>}
+        ListHeaderComponent={
+          <View style={styles.headerBlock}>
+            <Text style={styles.h}>Revise seu pedido</Text>
+          </View>
+        }
         ListEmptyComponent={<Text style={styles.empty}>Seu carrinho está vazio.</Text>}
         renderItem={({ item }) => (
           <View style={styles.row}>
+            <View style={styles.qtyBadge}>
+              <Text style={styles.qtyBadgeText}>{item.quantity}×</Text>
+            </View>
             <Text style={styles.name} numberOfLines={2}>
-              {item.quantity}× {item.name}
+              {item.name}
             </Text>
             <Text style={styles.sub}>{money(item.subtotal)}</Text>
           </View>
@@ -69,16 +77,45 @@ export function CheckoutScreen({ navigation }: Props) {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: '#fff' },
-  list: { padding: 16, gap: 8 },
-  h: { fontSize: 16, fontWeight: '700', color: '#111827', marginBottom: 6 },
-  row: { flexDirection: 'row', justifyContent: 'space-between', gap: 10 },
-  name: { flex: 1, fontSize: 14, color: '#374151' },
-  sub: { fontSize: 14, fontWeight: '600', color: '#111827' },
-  empty: { color: '#6b7280', textAlign: 'center', marginTop: 24 },
-  footer: { padding: 16, gap: 10, borderTopWidth: 1, borderTopColor: '#f3f4f6' },
+  container: { flex: 1, backgroundColor: BACKGROUND.backgorundMain },
+  list: { padding: 16, paddingBottom: 8, gap: 10 },
+  headerBlock: { marginBottom: 4 },
+  eyebrow: { fontSize: 12, fontWeight: '700', color: COLORS.primary, textTransform: 'uppercase', letterSpacing: 1 },
+  h: { fontSize: 22, fontWeight: '800', color: COLORS.black, marginTop: 2 },
+  row: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 10,
+    backgroundColor: COLORS.white,
+    borderRadius: 14,
+    padding: 12,
+    borderWidth: 1,
+    borderColor: COLORS.primaryBorder,
+  },
+  qtyBadge: {
+    backgroundColor: COLORS.primarySoft,
+    borderRadius: 999,
+    paddingHorizontal: 10,
+    paddingVertical: 4,
+  },
+  qtyBadgeText: { fontSize: 12, fontWeight: '700', color: COLORS.primary },
+  name: { flex: 1, fontSize: 14, color: COLORS.black },
+  sub: { fontSize: 14, fontWeight: '700', color: COLORS.black },
+  empty: { color: COLORS.gray, textAlign: 'center', marginTop: 24 },
+  footer: {
+    padding: 20,
+    gap: 10,
+    backgroundColor: COLORS.white,
+    borderTopLeftRadius: 24,
+    borderTopRightRadius: 24,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: -4 },
+    shadowOpacity: 0.06,
+    shadowRadius: 12,
+    elevation: 6,
+  },
   totalRow: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' },
-  totalLabel: { fontSize: 16, color: '#374151' },
-  total: { fontSize: 20, fontWeight: '800', color: '#111827' },
+  totalLabel: { fontSize: 16, color: COLORS.gray },
+  total: { fontSize: 22, fontWeight: '800', color: COLORS.primary },
   erro: { color: '#b91c1c', fontSize: 13 },
 });
