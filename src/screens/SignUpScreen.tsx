@@ -9,6 +9,7 @@ import { useSession } from '@/session/session';
 import { Button, TextField } from '@/components/ui';
 import type { AuthStackParamList } from '@/navigation';
 import type { ApiError } from '@/types/api';
+import { BACKGROUND, COLORS } from '@/styles/style';
 
 type Props = NativeStackScreenProps<AuthStackParamList, 'SignUp'>;
 
@@ -35,31 +36,53 @@ export function SignUpScreen({ navigation }: Props) {
   return (
     <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : undefined} style={styles.flex}>
       <View style={styles.container}>
+        <View style={styles.logoBubble}>
+          <Text style={styles.logoText}>TL</Text>
+        </View>
         <Text style={styles.title}>Criar conta</Text>
+        <Text style={styles.subtitle}>Leva menos de um minuto</Text>
 
-        <TextField placeholder="nome" autoCapitalize="words" value={name} onChangeText={setName} />
-        <TextField
-          placeholder="email"
-          autoCapitalize="none"
-          keyboardType="email-address"
-          autoComplete="email"
-          value={email}
-          onChangeText={setEmail}
-        />
-        <TextField
-          placeholder="senha (mín. 6 caracteres)"
-          secureTextEntry
-          value={password}
-          onChangeText={setPassword}
-        />
+        <View style={styles.card}>
+          <View style={styles.field}>
+            <Text style={styles.label}>Nome</Text>
+            <TextField placeholder="Seu nome completo" autoCapitalize="words" value={name} onChangeText={setName} />
+          </View>
 
-        {erro && <Text style={styles.erro}>{erro}</Text>}
+          <View style={styles.field}>
+            <Text style={styles.label}>E-mail</Text>
+            <TextField
+              placeholder="voce@email.com"
+              autoCapitalize="none"
+              keyboardType="email-address"
+              autoComplete="email"
+              value={email}
+              onChangeText={setEmail}
+            />
+          </View>
 
-        <Button
-          label={busy ? 'Criando…' : 'Cadastrar'}
-          onPress={handle}
-          disabled={busy || !name || !email || password.length < 6}
-        />
+          <View style={styles.field}>
+            <Text style={styles.label}>Senha</Text>
+            <TextField
+              placeholder="mín. 6 caracteres"
+              secureTextEntry
+              value={password}
+              onChangeText={setPassword}
+            />
+          </View>
+
+          {erro && (
+            <View style={styles.erroBox}>
+              <Text style={styles.erro}>{erro}</Text>
+            </View>
+          )}
+
+          <Button
+            label={busy ? 'Criando…' : 'Cadastrar'}
+            onPress={handle}
+            disabled={busy || !name || !email || password.length < 6}
+          />
+        </View>
+
         <Button label="Já tenho conta" variant="ghost" onPress={() => navigation.navigate('SignIn')} />
       </View>
     </KeyboardAvoidingView>
@@ -67,8 +90,37 @@ export function SignUpScreen({ navigation }: Props) {
 }
 
 const styles = StyleSheet.create({
-  flex: { flex: 1, backgroundColor: '#fff' },
-  container: { flex: 1, justifyContent: 'center', padding: 24, gap: 12 },
-  title: { fontSize: 26, fontWeight: '800', color: '#111827', textAlign: 'center', marginBottom: 8 },
+  flex: { flex: 1, backgroundColor: BACKGROUND.backgorundMain },
+  container: { flex: 1, justifyContent: 'center', padding: 24, gap: 10 },
+  logoBubble: {
+    alignSelf: 'center',
+    width: 56,
+    height: 56,
+    borderRadius: 999,
+    backgroundColor: COLORS.primary,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginBottom: 4,
+  },
+  logoText: { color: COLORS.white, fontSize: 18, fontWeight: '800' },
+  title: { fontSize: 24, fontWeight: '800', color: COLORS.black, textAlign: 'center' },
+  subtitle: { fontSize: 13, color: COLORS.gray, textAlign: 'center', marginBottom: 12 },
+  card: {
+    backgroundColor: COLORS.white,
+    borderRadius: 20,
+    padding: 18,
+    gap: 14,
+    borderWidth: 1,
+    borderColor: COLORS.primaryBorder,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 6 },
+    shadowOpacity: 0.06,
+    shadowRadius: 12,
+    elevation: 2,
+    marginBottom: 6,
+  },
+  field: { gap: 6 },
+  label: { fontSize: 12, fontWeight: '600', color: COLORS.gray },
+  erroBox: { backgroundColor: '#fee2e2', borderRadius: 10, padding: 10 },
   erro: { color: '#b91c1c', fontSize: 13, textAlign: 'center' },
 });
