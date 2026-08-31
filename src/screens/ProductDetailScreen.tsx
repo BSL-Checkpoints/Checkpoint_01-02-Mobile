@@ -14,6 +14,7 @@ import { money } from '@/lib/format';
 import { Button, ErrorState, Loading } from '@/components/ui';
 import type { RootStackParamList } from '@/navigation';
 import type { ApiError, ProductVariant } from '@/types/api';
+import { BACKGROUND, COLORS } from '@/styles/style';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ProductDetail'>;
 
@@ -55,68 +56,112 @@ export function ProductDetailScreen({ route, navigation }: Props) {
   }
 
   return (
-    <ScrollView contentContainerStyle={styles.container}>
-      {product.images[0] && <Image source={{ uri: product.images[0].url }} style={styles.hero} />}
-      <Text style={styles.name}>{product.name}</Text>
-      {selected && <Text style={styles.price}>{money(selected.price)}</Text>}
-      {product.description && <Text style={styles.desc}>{product.description}</Text>}
-
-      {/* Produto VARIABLE: deixa escolher a variante. SIMPLE já usa a única. */}
-      {product.type === 'VARIABLE' && (
-        <View style={styles.variants}>
-          <Text style={styles.label}>Opções</Text>
-          <View style={styles.variantRow}>
-            {product.variants.map((v) => {
-              const active = v.id === selected?.id;
-              return (
-                <Text
-                  key={v.id}
-                  onPress={() => setVariantId(v.id)}
-                  style={[styles.chip, active && styles.chipActive, v.stock <= 0 && styles.chipDisabled]}
-                >
-                  {v.label ?? v.sku}
-                </Text>
-              );
-            })}
+    <ScrollView style={styles.scroll} contentContainerStyle={styles.container}>
+      <View style={styles.card}>
+        {product.images[0] ? (
+          <Image source={{ uri: product.images[0].url }} style={styles.hero} />
+        ) : (
+          <View style={styles.heroPlaceholder}>
+            <Text style={styles.heroPlaceholderIcon}>🛍️</Text>
           </View>
+        )}
+
+        <View style={styles.info}>
+          <Text style={styles.name}>{product.name}</Text>
+          {selected && <Text style={styles.price}>{money(selected.price)}</Text>}
+          {product.description && <Text style={styles.desc}>{product.description}</Text>}
         </View>
-      )}
 
-      <Text style={styles.stock}>{outOfStock ? 'Sem estoque' : `${selected?.stock} em estoque`}</Text>
+        {/* Produto VARIABLE: deixa escolher a variante. SIMPLE já usa a única. */}
+        {product.type === 'VARIABLE' && (
+          <View style={styles.variants}>
+            <Text style={styles.label}>Opções</Text>
+            <View style={styles.variantRow}>
+              {product.variants.map((v) => {
+                const active = v.id === selected?.id;
+                return (
+                  <Text
+                    key={v.id}
+                    onPress={() => setVariantId(v.id)}
+                    style={[styles.chip, active && styles.chipActive, v.stock <= 0 && styles.chipDisabled]}
+                  >
+                    {v.label ?? v.sku}
+                  </Text>
+                );
+              })}
+            </View>
+          </View>
+        )}
 
-      {!isLoggedIn && (
-        <Text style={styles.loginHint}>Você precisa estar logado para comprar (veja a tela do carrinho).</Text>
-      )}
+        <View style={styles.divider} />
 
-      <Button
-        label={addItem.isPending ? 'Adicionando…' : 'Adicionar ao carrinho'}
-        onPress={handleAdd}
-        disabled={outOfStock || !isLoggedIn || addItem.isPending}
-      />
+        <View style={styles.row}>
+          <Text style={styles.rowLabel}>Disponibilidade</Text>
+          <Text style={styles.rowValue}>{outOfStock ? 'Sem estoque' : `${selected?.stock} em estoque`}</Text>
+        </View>
+
+        {!isLoggedIn && (
+          <Text style={styles.loginHint}>Você precisa estar logado para comprar (veja a tela do carrinho).</Text>
+        )}
+
+        <Button
+          label={addItem.isPending ? 'Adicionando…' : 'Adicionar ao carrinho'}
+          onPress={handleAdd}
+          disabled={outOfStock || !isLoggedIn || addItem.isPending}
+        />
+      </View>
     </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
-  container: { padding: 16, gap: 10 },
-  hero: { width: '100%', height: 260, borderRadius: 14, backgroundColor: '#e5e7eb' },
-  name: { fontSize: 20, fontWeight: '700', color: '#111827' },
-  price: { fontSize: 20, fontWeight: '800', color: '#111827' },
-  desc: { fontSize: 14, color: '#374151', lineHeight: 20 },
+  scroll: { flex: 1, backgroundColor: BACKGROUND.backgorundMain },
+  container: { padding: 16, flexGrow: 1 },
+  card: {
+    backgroundColor: COLORS.white,
+    borderRadius: 24,
+    padding: 18,
+    gap: 12,
+    borderWidth: 1,
+    borderColor: COLORS.primaryBorder,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 6 },
+    shadowOpacity: 0.06,
+    shadowRadius: 12,
+    elevation: 2,
+  },
+  hero: { width: '100%', height: 220, borderRadius: 18, backgroundColor: COLORS.background },
+  heroPlaceholder: {
+    width: '100%',
+    height: 220,
+    borderRadius: 18,
+    backgroundColor: COLORS.background,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  heroPlaceholderIcon: { fontSize: 48 },
+  info: { gap: 4, alignItems: 'center' },
+  name: { fontSize: 20, fontWeight: '700', color: COLORS.black, textAlign: 'center' },
+  price: { fontSize: 20, fontWeight: '800', color: COLORS.primary, textAlign: 'center' },
+  desc: { fontSize: 14, color: COLORS.gray, lineHeight: 20, textAlign: 'center', marginTop: 4 },
   variants: { gap: 6, marginTop: 4 },
-  label: { fontSize: 13, fontWeight: '600', color: '#6b7280' },
+  label: { fontSize: 13, fontWeight: '600', color: COLORS.gray },
   variantRow: { flexDirection: 'row', flexWrap: 'wrap', gap: 8 },
   chip: {
     borderWidth: 1,
-    borderColor: '#d1d5db',
+    borderColor: COLORS.grayBorder,
     borderRadius: 999,
     paddingHorizontal: 14,
     paddingVertical: 8,
     overflow: 'hidden',
-    color: '#111827',
+    color: COLORS.black,
+    backgroundColor: COLORS.white,
   },
-  chipActive: { borderColor: '#111827', backgroundColor: '#111827', color: '#fff' },
+  chipActive: { borderColor: COLORS.primary, backgroundColor: COLORS.primary, color: COLORS.white },
   chipDisabled: { opacity: 0.4 },
-  stock: { fontSize: 13, color: '#6b7280' },
-  loginHint: { fontSize: 13, color: '#b45309' },
+  divider: { height: 1, backgroundColor: COLORS.grayBorder, marginVertical: 4 },
+  row: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' },
+  rowLabel: { fontSize: 13, color: COLORS.gray },
+  rowValue: { fontSize: 13, fontWeight: '700', color: COLORS.black },
+  loginHint: { fontSize: 13, color: '#b45309', textAlign: 'center' },
 });
