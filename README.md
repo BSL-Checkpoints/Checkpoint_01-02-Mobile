@@ -110,7 +110,6 @@ Leia o QR code pelo Expo Go, ou pressione `a` para abrir no emulador Android.
 ## 🔑 Acesso à loja
 
 - **API Key da loja:** `sk_live_a291267df364f771d473e035c7d5311253fe7045b88afabf`
-- 
 ---
 
 ## 🧠 Decisões de produto
