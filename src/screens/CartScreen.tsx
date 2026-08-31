@@ -16,6 +16,7 @@ import type { RootStackParamList } from '@/navigation';
 // Importando os tipos e o serviço criado para não violar os requisitos RNF-01 e RF-02 do CP4
 import type { ApiError, ShippingOption } from '@/types/api';
 import { getShippingQuote } from '@/services/shipping'; 
+import { BACKGROUND, COLORS } from '@/styles/style';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Cart'>;
 
@@ -158,28 +159,46 @@ export function CartScreen({ navigation }: Props) {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: '#fff' },
+  container: { flex: 1, backgroundColor: BACKGROUND.backgorundMain },
   list: { padding: 12, gap: 10 },
-  hi: { fontSize: 14, color: '#374151', marginBottom: 6 },
-  row: { flexDirection: 'row', alignItems: 'center', gap: 10, backgroundColor: '#f9fafb', borderRadius: 12, padding: 10 },
+  hi: { fontSize: 14, color: COLORS.gray, marginBottom: 6 },
+  row: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 10,
+    backgroundColor: COLORS.white,
+    borderRadius: 14,
+    padding: 10,
+    borderWidth: 1,
+    borderColor: COLORS.primaryBorder,
+  },
   info: { flex: 1, gap: 2 },
-  name: { fontSize: 14, fontWeight: '600', color: '#111827' },
-  sub: { fontSize: 12, color: '#6b7280' },
+  name: { fontSize: 14, fontWeight: '600', color: COLORS.black },
+  sub: { fontSize: 12, color: COLORS.gray },
   qtyBox: { flexDirection: 'row', alignItems: 'center', gap: 10 },
-  qtyBtn: { fontSize: 20, fontWeight: '700', color: '#111827', paddingHorizontal: 6 },
-  qty: { fontSize: 15, fontWeight: '700', minWidth: 20, textAlign: 'center' },
+  qtyBtn: { fontSize: 20, fontWeight: '700', color: COLORS.primary, paddingHorizontal: 6 },
+  qty: { fontSize: 15, fontWeight: '700', minWidth: 20, textAlign: 'center', color: COLORS.black },
   remove: { fontSize: 12, color: '#b91c1c', marginLeft: 6 },
   footer: { marginTop: 16, gap: 10 },
-  total: { fontSize: 18, fontWeight: '800', color: '#111827', textAlign: 'right', marginTop: 10 },
+  total: { fontSize: 18, fontWeight: '800', color: COLORS.black, textAlign: 'right', marginTop: 10 },
   signout: { padding: 12 },
-  
+
   // Estilos da área de frete
-  shippingContainer: { backgroundColor: '#f3f4f6', padding: 12, borderRadius: 12, marginBottom: 10 },
-  shippingTitle: { fontSize: 14, fontWeight: '600', color: '#374151', marginBottom: 8 },
+  shippingContainer: { backgroundColor: COLORS.white, padding: 12, borderRadius: 14, marginBottom: 10, borderWidth: 1, borderColor: COLORS.primaryBorder },
+  shippingTitle: { fontSize: 14, fontWeight: '600', color: COLORS.black, marginBottom: 8 },
   shippingRow: { flexDirection: 'row', gap: 8 },
-  cepInput: { flex: 1, backgroundColor: '#fff', borderRadius: 8, paddingHorizontal: 12, borderWidth: 1, borderColor: '#d1d5db', height: 44 },
-  shippingResultBox: { marginTop: 12, gap: 6, borderTopWidth: 1, borderTopColor: '#e5e7eb', paddingTop: 10 },
+  cepInput: {
+    flex: 1,
+    backgroundColor: COLORS.background,
+    borderRadius: 10,
+    paddingHorizontal: 12,
+    borderWidth: 1,
+    borderColor: COLORS.grayBorder,
+    height: 44,
+    color: COLORS.black,
+  },
+  shippingResultBox: { marginTop: 12, gap: 6, borderTopWidth: 1, borderTopColor: COLORS.grayBorder, paddingTop: 10 },
   shippingOptionRow: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' },
-  shippingName: { fontSize: 14, color: '#4b5563' },
-  shippingPrice: { fontSize: 14, fontWeight: '700', color: '#111827' },
+  shippingName: { fontSize: 14, color: COLORS.gray },
+  shippingPrice: { fontSize: 14, fontWeight: '700', color: COLORS.black },
 });
