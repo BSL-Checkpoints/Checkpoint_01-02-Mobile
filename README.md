@@ -105,15 +105,12 @@ npx expo start
 ```
 Leia o QR code pelo Expo Go, ou pressione `a` para abrir no emulador Android.
 
-> ⚠️ Cada integrante deve rodar com o **próprio RM** no `.env` — é o que alimenta o painel de atividade da API (`X-Student-RM`).
-
 ---
 
 ## 🔑 Acesso à loja
 
 - **API Key da loja:** `sk_live_a291267df364f771d473e035c7d5311253fe7045b88afabf`
-- **Painel de cadastro do catálogo:** aluno-admin-web
-
+- 
 ---
 
 ## 🧠 Decisões de produto
